@@ -14,7 +14,13 @@ public class Recommendation {
 	 */
 	private boolean checkPersonState(Person p) {
 		// TODO - implement Recommendation.checkPersonState
-		throw new UnsupportedOperationException();
+		boolean result = true;
+		if (!p.getIsHealthy() || p.getHas_symptoms() || p.getHad_contact() || !p.getPassed_covid()
+				|| !p.getHas_vaccination_card()) {
+			return false;
+		}
+		return result;
+
 	}
 
 	/**
@@ -23,7 +29,12 @@ public class Recommendation {
 	 */
 	private boolean checkStayHome(Weather w) {
 		// TODO - implement Recommendation.checkStayHome
-		throw new UnsupportedOperationException();
+		boolean result = false;
+		if (w.getTemperature() < 0 && w.getRelative_humidity() < 0.15 && (w.getRaining() || w.getSnowing())) {
+			result = true;
+		}
+		return result;
+
 	}
 
 	/**
@@ -33,7 +44,13 @@ public class Recommendation {
 	 */
 	private boolean checkSkiing(Weather w, Space s) {
 		// TODO - implement Recommendation.checkSkiing
-		throw new UnsupportedOperationException();
+		boolean result = false;
+		if (w.getTemperature() < 0 && w.getRelative_humidity() < 0.15 && !w.getRaining() && !w.getSnowing()
+				&& !s.getIs_capacity_exceeded()) {
+			result = true;
+		}
+		return result;
+
 	}
 
 	/**
@@ -43,7 +60,13 @@ public class Recommendation {
 	 */
 	private boolean checkHiking(Weather w, Space s) {
 		// TODO - implement Recommendation.checkHiking
-		throw new UnsupportedOperationException();
+		boolean result = false;
+
+		if (w.getTemperature() >= 0 && w.getTemperature() < 15 && !w.getRaining() && !s.getIs_capacity_exceeded()) {
+			result = true;
+		}
+		return result;
+
 	}
 
 	/**
@@ -53,7 +76,13 @@ public class Recommendation {
 	 */
 	private boolean checkSightseeing(Weather w, Space s) {
 		// TODO - implement Recommendation.checkSightseeing
-		throw new UnsupportedOperationException();
+		boolean result = false;
+		if (w.getTemperature() >= 15 && w.getTemperature() < 25 && !w.getRaining() && !w.getCloudy()
+				&& w.getRelative_humidity() <= 0.6 && !s.getHas_confinement_restrictions()) {
+			result = true;
+		}
+		return result;
+
 	}
 
 	/**
@@ -63,7 +92,12 @@ public class Recommendation {
 	 */
 	private boolean checkBeer(Weather w, Space s) {
 		// TODO - implement Recommendation.checkBeer
-		throw new UnsupportedOperationException();
+		boolean result = false;
+		if (w.getTemperature() >= 25 && w.getTemperature() < 35 && !s.getIs_capacity_exceeded() && !w.getRaining()) {
+			result = true;
+		}
+		return result;
+
 	}
 
 	/**
@@ -73,7 +107,12 @@ public class Recommendation {
 	 */
 	private boolean checkWaterActivities(Weather w, Space s) {
 		// TODO - implement Recommendation.checkWaterActivities
-		throw new UnsupportedOperationException();
+		boolean result = false;
+		if (w.getTemperature() > 30 && !w.getRaining()) {
+			result = true;
+		}
+		return result;
+
 	}
 
 	/**
@@ -81,10 +120,37 @@ public class Recommendation {
 	 * @param p
 	 * @param w
 	 * @param s
+	 * @throws NoActivityException
 	 */
-	public ArrayList<ActivityType> getRecommendations(Person p, Weather w, Space s) {
+	public ArrayList<ActivityType> getRecommendations(Person p, Weather w, Space s) throws NoActivityException {
 		// TODO - implement Recommendation.getRecommendations
-		throw new UnsupportedOperationException();
+		ArrayList<ActivityType> result = new ArrayList<ActivityType>();
+		if (checkPersonState(p)) {
+			throw new NoActivityException();
+		}
+		if (checkStayHome(w)) {
+			result.add(ActivityType.STAY_HOME);
+		}
+		if (checkSkiing(w, s)) {
+			result.add(ActivityType.SKIING);
+		}
+		if (checkHiking(w, s)) {
+			result.add(ActivityType.HIKING);
+		}
+		if (checkSightseeing(w, s)) {
+			result.add(ActivityType.SIGHTSEEING);
+		}
+		if (checkBeer(w, s)) {
+			result.add(ActivityType.BEER);
+		}
+		if (checkWaterActivities(w, s)) {
+			result.add(ActivityType.BEACH);
+			if (!s.getIs_capacity_exceeded()) {
+				result.add(ActivityType.SWIMMING_POOL);
+			}
+		}
+		return result;
+
 	}
 
 }
