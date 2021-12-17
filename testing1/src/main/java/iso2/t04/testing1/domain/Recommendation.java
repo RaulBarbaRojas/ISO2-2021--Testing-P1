@@ -1,22 +1,21 @@
 package iso2.t04.testing1.domain;
 
-import java.util.ArrayList;
+import java.util.ArrayList;  // Changed import
 
 public class Recommendation {
 
-	private Weather weather;
-	private Space space;
-	private Person person;
+	public static Weather weather;
+	public static Space space;
+	public static Person person;
 
 	/**
 	 * 
 	 * @param p
 	 */
-	private boolean checkPersonState(Person p) {
+	public static boolean checkPersonState(Person p) {
 		// TODO - implement Recommendation.checkPersonState
 		boolean result = true;
-		if (!p.getIsHealthy() || p.getHas_symptoms() || p.getHad_contact() || !p.getPassed_covid()
-				|| !p.getHas_vaccination_card()) {
+		if (!p.getIsHealthy() || p.getHas_symptoms() || p.getHad_contact() || !p.getPassed_covid() || !p.getHas_vaccination_card()) {
 			return false;
 		}
 		return result;
@@ -27,7 +26,7 @@ public class Recommendation {
 	 * 
 	 * @param w
 	 */
-	private boolean checkStayHome(Weather w) {
+	public static boolean checkStayHome(Weather w) {
 		// TODO - implement Recommendation.checkStayHome
 		boolean result = false;
 		if (w.getTemperature() < 0 && w.getRelative_humidity() < 0.15 && (w.getRaining() || w.getSnowing())) {
@@ -42,7 +41,7 @@ public class Recommendation {
 	 * @param w
 	 * @param s
 	 */
-	private boolean checkSkiing(Weather w, Space s) {
+	public static boolean checkSkiing(Weather w, Space s) {
 		// TODO - implement Recommendation.checkSkiing
 		boolean result = false;
 		if (w.getTemperature() < 0 && w.getRelative_humidity() < 0.15 && !w.getRaining() && !w.getSnowing()
@@ -58,7 +57,7 @@ public class Recommendation {
 	 * @param w
 	 * @param s
 	 */
-	private boolean checkHiking(Weather w, Space s) {
+	public static boolean checkHiking(Weather w, Space s) {
 		// TODO - implement Recommendation.checkHiking
 		boolean result = false;
 
@@ -74,7 +73,7 @@ public class Recommendation {
 	 * @param w
 	 * @param s
 	 */
-	private boolean checkSightseeing(Weather w, Space s) {
+	public static boolean checkSightseeing(Weather w, Space s) {
 		// TODO - implement Recommendation.checkSightseeing
 		boolean result = false;
 		if (w.getTemperature() >= 15 && w.getTemperature() < 25 && !w.getRaining() && !w.getCloudy()
@@ -90,7 +89,7 @@ public class Recommendation {
 	 * @param w
 	 * @param s
 	 */
-	private boolean checkBeer(Weather w, Space s) {
+	public static boolean checkBeer(Weather w, Space s) {
 		// TODO - implement Recommendation.checkBeer
 		boolean result = false;
 		if (w.getTemperature() >= 25 && w.getTemperature() < 35 && !s.getIs_capacity_exceeded() && !w.getRaining()) {
@@ -105,7 +104,7 @@ public class Recommendation {
 	 * @param w
 	 * @param s
 	 */
-	private boolean checkWaterActivities(Weather w, Space s) {
+	public static boolean checkWaterActivities(Weather w, Space s) {
 		// TODO - implement Recommendation.checkWaterActivities
 		boolean result = false;
 		if (w.getTemperature() > 30 && !w.getRaining()) {

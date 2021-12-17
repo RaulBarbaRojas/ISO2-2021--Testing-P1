@@ -8,6 +8,18 @@ public class Person {
 	private boolean passed_covid;
 	private boolean has_vaccination_card;
 
+	
+	
+	public Person(boolean isHealthy, boolean has_symptoms, boolean had_contact, boolean passed_covid,
+			boolean has_vaccination_card) {
+		super();
+		this.isHealthy = isHealthy;
+		this.has_symptoms = has_symptoms;
+		this.had_contact = had_contact;
+		this.passed_covid = passed_covid;
+		this.has_vaccination_card = has_vaccination_card;
+	}
+
 	public boolean getIsHealthy() {
 		return this.isHealthy;
 	}
