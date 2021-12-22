@@ -8,6 +8,15 @@ public class Weather {
 	private boolean raining;
 	private boolean cloudy;
 
+	public Weather(int temperature, double relative_humidity, boolean snowing, boolean raining, boolean cloudy) {
+		super();
+		this.temperature = temperature;
+		this.relative_humidity = relative_humidity;
+		this.snowing = snowing;
+		this.raining = raining;
+		this.cloudy = cloudy;
+	}
+
 	public int getTemperature() {
 		return this.temperature;
 	}

@@ -87,8 +87,21 @@ public class AppTest
      */
     
     @Test
-    public void modifiedConditionDecisionCoverage() {
+    public void modifiedConditionDecisionCoverageCheckPersonState() {
     	assertEquals(Recommendation.checkPersonState(new Person(false, true, true, false, false)), false); //TC1
     	assertEquals(Recommendation.checkPersonState(new Person(true, false, false, true, true)), true); //TC2
+    }
+    
+    
+    /*
+     * I need to give 5 values and not 4, to create the Weather object, but the 5th value is not relevant
+     * at all to test this method: modifiedConditionDecisionCoverageCheckStayHome
+     */
+    @Test
+    public void modifiedConditionDecisionCoverageCheckStayHome() {
+    	assertEquals(Recommendation.checkStayHome(new Weather(-10, 0.01, true, true, true)), true);  //TC1
+    	assertEquals(Recommendation.checkStayHome(new Weather(-10, 0.01, false, false, true)), false);  //TC2
+    	assertEquals(Recommendation.checkStayHome(new Weather(-10, 0.80, true, true, true)), false);  //TC3
+    	assertEquals(Recommendation.checkStayHome(new Weather(15, 0.01, true, true, true)), false);  //TC4
     }
 }
