@@ -4,6 +4,12 @@ public class Space {
 
 	private boolean is_capacity_exceeded;
 	private boolean has_confinement_restrictions;
+	
+	public Space(boolean is_capacity_exceeded, boolean has_confinement_restrictions) {
+		super();
+		this.is_capacity_exceeded = is_capacity_exceeded;
+		this.has_confinement_restrictions = has_confinement_restrictions;
+	}
 
 	public boolean getIs_capacity_exceeded() {
 		return this.is_capacity_exceeded;

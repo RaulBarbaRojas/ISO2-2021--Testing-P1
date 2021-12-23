@@ -4,10 +4,6 @@ import java.util.ArrayList;  // Changed import
 
 public class Recommendation {
 
-	public static Weather weather;
-	public static Space space;
-	public static Person person;
-
 	/**
 	 * 
 	 * @param p
@@ -121,7 +117,7 @@ public class Recommendation {
 	 * @param s
 	 * @throws NoActivityException
 	 */
-	public ArrayList<ActivityType> getRecommendations(Person p, Weather w, Space s) throws NoActivityException {
+	public static ArrayList<ActivityType> getRecommendations(Person p, Weather w, Space s) throws NoActivityException {
 		// TODO - implement Recommendation.getRecommendations
 		ArrayList<ActivityType> result = new ArrayList<ActivityType>();
 		if (checkPersonState(p)) {

@@ -2,6 +2,10 @@ package iso2.t04.testing1;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
+
+import java.util.ArrayList;
+
 import iso2.t04.testing1.domain.*;
 
 import org.junit.Test;
@@ -81,6 +85,78 @@ public class AppTest
     	assertEquals(Recommendation.checkPersonState(new Person(true, false, false, true, true)), true); //TC2
     }
 
+    
+    @Test
+    public void decisionCoverageCheckStayHome() {
+    	assertEquals(Recommendation.checkStayHome(new Weather(-1, 0.14, true, true, true)), true); //TC1
+    	assertEquals(Recommendation.checkStayHome(new Weather(-1, 0.14, false, false, false)), false); //TC2
+    }
+    
+    @Test
+    public void decisionCoverageCheckSkiing() {
+    	assertEquals(Recommendation.checkSkiing(new Weather(-1, 0.14, false, false, false), new Space(false, false)), true); //TC1
+    	assertEquals(Recommendation.checkSkiing(new Weather(-1, 0.14, false, false, false), new Space(true, true)), false); //TC2
+    }
+
+    @Test
+    public void decisionCoverageCheckHiking() {
+    	assertEquals(Recommendation.checkHiking(new Weather(0, 0.14, false, false, false), new Space(false, false)), true); //TC1
+    	assertEquals(Recommendation.checkHiking(new Weather(0, 0.14, false, false, false), new Space(true, true)), false); //TC2
+    }
+
+    @Test
+    public void decisionCoverageCheckSightseeing() {
+    	assertEquals(Recommendation.checkSightseeing(new Weather(15, 0.6, false, false, false), new Space(false, false)), true); //TC1
+    	assertEquals(Recommendation.checkSightseeing(new Weather(15, 0.6, false, false, false), new Space(true, true)), false); //TC2
+    }
+    
+    
+    @Test
+    public void decisionCoverageCheckBeer() {
+    	assertEquals(Recommendation.checkBeer(new Weather(25, 0.14, false, false, false), new Space(false, false)), true); //TC1
+    	assertEquals(Recommendation.checkBeer(new Weather(25, 0.14, true, true, true), new Space(true, true)), false); //TC2
+    }
+
+    @Test
+    public void decisionCoverageCheckWaterActivities() {
+    	assertEquals(Recommendation.checkWaterActivities(new Weather(31, 0.14, true, true, true), new Space(false, false)), false); //TC1
+    	assertEquals(Recommendation.checkWaterActivities(new Weather(31, 0.14, false, false, false), new Space(true, true)), true); //TC2
+    }
+    
+    @Test
+    public void decisionCoverageCheckGetRecommendations() {
+    	try {
+    		ArrayList<ActivityType> lHiking = new ArrayList<ActivityType>();
+    		lHiking.add(ActivityType.HIKING);
+    		ArrayList<ActivityType> lSkiing = new ArrayList<ActivityType>();
+    		lSkiing.add(ActivityType.SKIING);
+    		ArrayList<ActivityType> lBeer = new ArrayList<ActivityType>();
+    		lBeer.add(ActivityType.BEER);
+    		ArrayList<ActivityType> lSightseeing = new ArrayList<ActivityType>();
+    		lSightseeing.add(ActivityType.SIGHTSEEING);
+    		ArrayList<ActivityType> lStayhome = new ArrayList<ActivityType>();
+    		lStayhome.add(ActivityType.STAY_HOME);
+    		ArrayList<ActivityType> lSwimmingPool = new ArrayList<ActivityType>();
+    		lSwimmingPool.add(ActivityType.SWIMMING_POOL);
+    		lSwimmingPool.add(ActivityType.BEACH);
+    		ArrayList<ActivityType> lBeach = new ArrayList<ActivityType>();
+    		lBeach.add(ActivityType.BEACH);
+    		assertEquals(Recommendation.getRecommendations(new Person(false, true, true, false, false), new Weather(31, 0.14, true, true, true), new Space(false, false)).equals(new ArrayList<ActivityType>()), true);
+    		assertEquals(Recommendation.getRecommendations(new Person(false, true, true, false, false), new Weather(0, 0.14, false, false, false), new Space(false, false)).equals(lHiking), true);
+    		assertEquals(Recommendation.getRecommendations(new Person(false, true, true, false, false), new Weather(0, 0.14, false, false, false), new Space(true, true)).equals(lHiking), false);
+    		assertEquals(Recommendation.getRecommendations(new Person(false, true, true, false, false), new Weather(-1, 0.14, true, true, true), new Space(true, true)).equals(lSkiing), false);
+    		assertEquals(Recommendation.getRecommendations(new Person(false, true, true, false, false), new Weather(-1, 0.14, false, false, false), new Space(false, false)).equals(lSkiing), true);
+    		assertEquals(Recommendation.getRecommendations(new Person(false, true, true, false, false), new Weather(-1, 0.14, true, true, true), new Space(false, false)).equals(lStayhome), true);
+    		assertEquals(Recommendation.getRecommendations(new Person(false, true, true, false, false), new Weather(-1, 0.14, false, false, false), new Space(false, false)).equals(lStayhome), false);
+    		assertEquals(Recommendation.getRecommendations(new Person(false, true, true, false, false), new Weather(15, 0.6, false, false, false), new Space(false, false)).equals(lSightseeing), true);
+    		assertEquals(Recommendation.getRecommendations(new Person(false, true, true, false, false), new Weather(15, 0.6, false, false, false), new Space(true, true)).equals(lSightseeing), false);
+    		assertEquals(Recommendation.getRecommendations(new Person(false, true, true, false, false), new Weather(25, 0.14, false, false, false), new Space(false, false)).equals(lBeer), true);
+    		assertEquals(Recommendation.getRecommendations(new Person(false, true, true, false, false), new Weather(25, 0.14, true, true, true), new Space(true, true)).equals(lBeer), false);
+    		assertEquals(Recommendation.getRecommendations(new Person(false, true, true, false, false), new Weather(36, 0.14, false, false, false), new Space(true, true)).equals(lBeach), true);
+    	}catch(NoActivityException e) {
+    		
+    	}
+    }
     
     /**
      * MODIFIED CONDITION DECISION COVERAGE
